@@ -2,19 +2,20 @@
   "name": "js-sha256",
   "version": "0.9.0",
   "description": "A simple SHA-256 / SHA-224 hash function for JavaScript supports UTF-8 encoding.",
-  "main": "src/sha256.js",
+  "main": "src/sha256.mjs",
+  "module": "src/sha256.mjs",
   "devDependencies": {
+    "ava": "^3.15.0",
+    "c8": "^7.7.0",
     "expect.js": "~0.3.1",
-    "mocha": "~2.3.4",
-    "nyc": "^11.3.0",
-    "uglify-js": "^3.1.9",
-    "webworker-threads": "^0.7.13"
+    "terser": "^5.6.1",
+    "tiny-worker": "^2.3.0"
   },
   "scripts": {
-    "test": "nyc mocha tests/node-test.js",
-    "report": "nyc --reporter=html --reporter=text mocha tests/node-test.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "build": "uglifyjs src/sha256.js -c -m eval --comments -o build/sha256.min.js"
+    "test": "ava tests/sha256.test.mjs",
+    "report": "c8 --reporter=html --reporter=text ava tests/sha256.test.mjs",
+    "coveralls": "c8 ava --reporter=text-lcov | coveralls",
+    "build": "terser src/sha256.mjs -c -m eval --comments -o build/sha256.min.js"
   },
   "repository": {
     "type": "git",
